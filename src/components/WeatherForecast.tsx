@@ -92,7 +92,7 @@ interface WeatherError {
 export default function WeatherForecast({ forecast }: { forecast: WeatherData | WeatherError | null }) {
   const [selectedDay, setSelectedDay] = useState(0);
   const [groupedForecast, setGroupedForecast] = useState<ReturnType<typeof groupForecastByDay>>([]);
-  const [temperatureUnit, setTemperatureUnit] = useState<'celsius' | 'fahrenheit'>('celsius');
+  const [temperatureUnit, setTemperatureUnit] = useState<'celsius' | 'fahrenheit'>('fahrenheit'); // Changed default to 'fahrenheit'
 
   useEffect(() => {
     if (forecast && 'list' in forecast) {

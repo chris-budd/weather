@@ -30,7 +30,7 @@ describe('WeatherForecast', () => {
   it('renders forecast data correctly', () => {
     render(<WeatherForecast forecast={mockForecast} />);
     expect(screen.getByText('5-Day Forecast')).toBeInTheDocument();
-    expect(screen.getByText('20°C')).toBeInTheDocument();
+    expect(screen.getByText('68°F')).toBeInTheDocument();
     expect(screen.getByText('clear sky')).toBeInTheDocument();
   });
 
