@@ -1,4 +1,9 @@
 export async function getWeatherData(zip: string) {
+
+  if (!/^\d{5}$/.test(zip)) {
+    return { error: "Invalid ZIP code. Please enter a 5-digit US ZIP code." };
+  }
+
   const apiKey = process.env.OPENWEATHER_API_KEY;
   try {
     if (!apiKey) {
@@ -8,7 +13,7 @@ export async function getWeatherData(zip: string) {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 8000);
 
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${zip},us&appid=${apiKey}&units=metric`, { 
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?zip=${encodeURIComponent(zip)},us&appid=${apiKey}&units=metric`, { 
       cache: 'no-store',
       signal: controller.signal
     });
