@@ -67,8 +67,8 @@ export default async function WeatherPage({ params }: { params: { zip: string } 
             </Link>
             <SearchBar variant="forecast" />
           </div>
-          <div className="text-center sm:text-right mt-4 sm:mt-0">
-            <h1 className="text-4xl font-bold text-white mb-2">
+          <div className="text-center sm:text-right mt-10 sm:mt-0">
+            <h1 className="text-5xl sm:text-4xl font-bold text-white mb-2">
               {cityName}
             </h1>
             <div className="text-xl text-white/80 font-light">
