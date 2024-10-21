@@ -22,11 +22,7 @@ export default function SearchBar({ variant = 'default' }: SearchBarProps) {
     e.preventDefault();
     if (validateZipCode(zipCode)) {
       setIsValid(true);
-      try {
-        await router.push(`/weather/${zipCode}`);
-      } catch (error) {
-        console.error(error);
-      }
+      router.push(`/weather/${zipCode}`);
     } else {
       setIsValid(false);
     }
@@ -42,9 +38,14 @@ export default function SearchBar({ variant = 'default' }: SearchBarProps) {
   const isForecast = variant === 'forecast';
 
   return (
-    <form onSubmit={handleSubmit} className={`
-      ${isLarge ? 'w-64' : isForecast ? 'w-full max-w-xs' : 'w-full max-w-md'}
-    `}>
+    <form 
+      onSubmit={handleSubmit} 
+      action={`/weather/${zipCode}`} 
+      method="GET"
+      className={`
+        ${isLarge ? 'w-64' : isForecast ? 'w-full max-w-xs' : 'w-full max-w-md'}
+      `}
+    >
       <div className={`
         relative flex items-center bg-white/15 backdrop-blur-md rounded-lg overflow-hidden shadow-lg
         ${isLarge ? 'h-16' : isForecast ? 'h-12' : ''}
@@ -52,7 +53,9 @@ export default function SearchBar({ variant = 'default' }: SearchBarProps) {
       `}>
         <input
           type="number"
+          name="zip"
           value={zipCode}
+          autoComplete='off'
           onChange={handleZipCodeChange}
           placeholder="Enter ZIP code"
           className={`
@@ -60,6 +63,7 @@ export default function SearchBar({ variant = 'default' }: SearchBarProps) {
             ${isLarge ? 'text-2xl' : isForecast ? 'text-base' : 'text-sm'}
           `}
           maxLength={5}
+          required
         />
         <button
           type="submit"

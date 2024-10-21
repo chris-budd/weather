@@ -10,8 +10,9 @@ export const metadata: Metadata = {
   description: '3-hour increment weather forecast for US zip codes',
 };
 
-export default async function WeatherPage({ params }: { params: { zip: string } }) {
+export default async function WeatherPage({ params, searchParams }: { params: { zip: string }, searchParams: { day?: string } }) {
   const { zip } = params;
+  const selectedDay = searchParams.day ? parseInt(searchParams.day) : 0;
   const weatherData = await getWeatherData(zip);
 
   if ('error' in weatherData) {
@@ -83,7 +84,7 @@ export default async function WeatherPage({ params }: { params: { zip: string } 
             </div>
           </div>
         </header>
-        <WeatherForecast forecast={weatherData} />
+        <WeatherForecast forecast={weatherData} selectedDay={selectedDay} />
       </div>
     </main>
   );
